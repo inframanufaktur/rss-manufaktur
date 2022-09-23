@@ -12,6 +12,16 @@ module.exports = async function () {
 
     const content = await getBlog(parserInfo)
 
+    if (content.feeds.length) {
+      console.log(
+        `Found existing feeds on ${
+          parserInfo.url
+        }.\nUse first party feeds whenever possible.\n${content.feeds.join(
+          '\n',
+        )}\n`,
+      )
+    }
+
     feeds.push({ ...blog, ...content })
   }
 
