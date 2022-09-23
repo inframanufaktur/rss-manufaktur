@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Feeds</title>
+    {% for feed in collections.feeds %}
+    <link
+      href="{{ feed.data.permalink }}"
+      title="{{ feed.data.feed.meta.title }}"
+    />
+    {% endfor %}
   </head>
   <body>
     {{ content | safe }}
