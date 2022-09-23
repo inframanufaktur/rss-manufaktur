@@ -92,8 +92,8 @@ module.exports = async function () {
 
     feeds.push({
       ...blog,
-      posts: distinctPosts.sort((a, b) => a.date < b.date),
       ...content,
+      posts: distinctPosts.sort((a, b) => a.date < b.date),
     })
   }
 
