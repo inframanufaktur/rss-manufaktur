@@ -82,12 +82,6 @@ module.exports = async function () {
 
     const distinctPosts = getDistinctPosts(cached, content.posts)
 
-    /* Object.defineProperty(content, 'posts', {
-      value: distinctPosts.sort((a, b) => a.date < b.date),
-      enumerable: true,
-      writable: true,
-    }) */
-
     await setCache(blog.cache_name, distinctPosts)
 
     feeds.push({
