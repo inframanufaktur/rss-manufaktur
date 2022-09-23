@@ -2,11 +2,13 @@
 
 A template to build RSS Feeds.
 
-In short, RSS Manufaktur takes information of a blog and builds it into a custom RSS feed for your enjoyment.
+In short, RSS Manufaktur takes information of a blog and transforms it into a custom RSS feed for your enjoyment.
 
 ## How it works
 
-Add blog data in `_src/_data/blog-info.json`. The data should look as follows:
+Add blog data in `_src/_data/blog-info.json`. You can add as many blogs as you like.
+
+The data should look as follows:
 
 ```json
 [
@@ -31,14 +33,16 @@ Add blog data in `_src/_data/blog-info.json`. The data should look as follows:
 
 The URL given in `parserInfo.url` will be scraped and all posts returned. Based on this data, RSS Manufaktur will build a RSS feed.
 
+The feed is named after `parserInfo.url`. Say your domain is `https://www.zachleat.com`, the feed will be available at `/feeds/www.zachleat.com.xml`.
+
+All created feeds are shown on the homepage.
+
 ## What it needs
 
 Create a `.env` file with the following content:
 
-````
+```
 BASE_URL=https://www.yourdomain.dev
 ```
 
 We need to have a base URL to construct a public link to your feed.
-
-````
