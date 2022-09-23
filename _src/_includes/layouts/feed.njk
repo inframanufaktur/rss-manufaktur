@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ feed.meta.title }}</title>
+  {# <subtitle>{{ metadata.subtitle }}</subtitle> #}
+  <link href="{{ permalink | absoluteUrl(site.baseURL) }}" rel="self" />
+  <link href="{{ feed.parserInfo.url }}" rel="alternate" />
+  {# {% set iconUrl = site.baseURL + '/img/favicon/favicon-32x32.png' %}
+  <icon>{{ iconUrl }}</icon> #}
+  <updated>{{
+    collections[collection] | getNewestCollectionItemDate | dateToRfc3339
+  }}</updated>
+  <id>{{ feed.parserInfo.url }}</id>
+  {#
+  <author>
+    <name>{{ site.author.name }}</name>
+    <email>{{ site.author.email }}</email>
+    <uri>{{ site.baseURL }}</uri>
+  </author>
+  #}
+  {{ content | safe }}
+</feed>
