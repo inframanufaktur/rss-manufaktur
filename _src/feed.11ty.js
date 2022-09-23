@@ -20,19 +20,18 @@ module.exports = class Feed {
         data: 'feeds',
         size: 1,
         alias: 'feed',
+        addAllPagesToCollections: true,
       },
+      tags: ['feeds'],
 
       eleventyComputed: {
         permalink: ({ feed }) =>
           `/feeds/${new URL(feed.parserInfo.url).host}.xml`,
-        publicLink: ({ feed, site, permalink }) =>
-          new URL(feed.permalink, site.baseURL),
       },
     }
   }
 
   render({ feed }) {
-    console.log(publicLink)
     return feed.posts.map((post) => renderFeedItem(post)).join('')
   }
 }
