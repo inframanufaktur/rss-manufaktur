@@ -1,3 +1,3 @@
 module.exports = {
-  baseURL: 'https://feeds.owlish.dev',
+  baseURL: process.env.BASE_URL || 'http://localhost:8080',
 }
