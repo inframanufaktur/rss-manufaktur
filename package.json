@@ -1,0 +1,29 @@
+{
+  "name": "@inframanufaktur/rss-manufaktur",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "ELEVENTY_ENV=development eleventy --serve --quiet",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inframanufaktur/rss-manufaktur.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inframanufaktur/rss-manufaktur/issues"
+  },
+  "homepage": "https://github.com/inframanufaktur/rss-manufaktur#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.0-canary.15",
+    "@11ty/eleventy-plugin-rss": "^1.2.0",
+    "@inframanufaktur/blog-parser": "^0.1.0"
+  },
+  "11ty": {
+    "compatbility": ">=2.0.0"
+  }
+}
