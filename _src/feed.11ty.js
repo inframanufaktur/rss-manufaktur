@@ -5,8 +5,8 @@ function renderFeedItem({ title, url, date, postIntro }) {
     <entry>
       <title>${title}</title>
       <link href="${url}"/>
-      <published>${dateToRfc3339(date)}</published>
-      <updated>${dateToRfc3339(date)}</updated>
+      <published>${dateToRfc3339(new Date(date))}</published>
+      <updated>${dateToRfc3339(new Date(date))}</updated>
       <id>${url}</id>
       <summary type="html">${postIntro || ''}</summary>
     </entry>
