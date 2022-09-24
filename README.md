@@ -32,8 +32,6 @@ The data should look as follows:
 
 The URL given in `parserInfo.url` will be scraped and all posts returned. Based on this data, RSS Manufaktur will build a RSS feed.
 
-The feed is named after `parserInfo.url`. Say your domain is `https://www.zachleat.com`, the feed will be available at `/feeds/www.zachleat.com.xml`.
-
 All created feeds are shown on the homepage.
 
 ### Caching
@@ -44,7 +42,17 @@ You can either have this cache in your version control, or .gitignore this, and 
 
 The cache folder is `./posts`.
 
-The cache name is automatically generated based on `parserInfo.url`, replacing `www.`. For `www.zachleat.com` the cache is stored in `./posts/zachleat.com.json`.
+The cache name is automatically generated based on `parserInfo.url`, replacing `www.` and adding the hashed URL `pathname`. This allows to have multiple feeds from the same host (e.g. for following multiple categories or authors which do not have their own feeds).
+
+### Rebuilding Feeds
+
+The generated site itself is static. To update the feeds you’ll need to trigger a rebuild at certain intervals (e.g. every night).
+
+On most hosting providers you’ll be able to do so via [CRON jobs](https://en.wikipedia.org/wiki/Cron). Netlify provided a [guide for scheduled deploys](https://www.netlify.com/blog/how-to-schedule-deploys-with-netlify/) on their blog. The same concept can be adapted for [DigitalOcean functions](https://docs.digitalocean.com/products/functions/) or your own server.
+
+### Existing Feeds
+
+As `@inframanufaktur/blog-parser` collects existing feeds from the blog page, we can use this information to show them when building. Please use first party feeds whenever possible. They are most likely better.
 
 ## What it needs
 
