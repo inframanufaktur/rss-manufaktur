@@ -36,13 +36,11 @@ module.exports = async function () {
     const cached = await getCache(uniqueName)
 
     if (content.feeds.length) {
-      console.log(
-        `Found existing feeds on ${
-          parserInfo.url
-        }.\nUse first party feeds whenever possible.\n${content.feeds.join(
-          '\n',
-        )}\n`,
-      )
+      console.group()
+      console.log(`Found existing feeds on ${parserInfo.url}.`)
+      console.log('Use first party feeds whenever possible.')
+      console.log(`${content.feeds.join('\n')}\n`)
+      console.groupEnd()
     }
 
     for (const post of content.posts) {
