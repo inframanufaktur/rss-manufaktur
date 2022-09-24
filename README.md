@@ -4,6 +4,19 @@ A template to build RSS Feeds.
 
 In short, RSS Manufaktur takes information of a blog and transforms it into a custom RSS feed for your enjoyment.
 
+## Get started
+
+To make this to your own Manufaktur you can either:
+
+- Use the «Use this template» button on the top of the page
+- Fork this repository
+
+Note: When you use the template button, you lose access to the commit history and (potential) future features.
+
+Afterwards you can update the JSON file in `./_src/_data` and add the sites you want to scrape.
+
+As working with CSS selectors is a bit daunting, we’re open for better ideas.
+
 ## How it works
 
 Add blog data in `_src/_data/blog-info.json`. You can add as many blogs as you like.
