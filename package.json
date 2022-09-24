@@ -28,5 +28,8 @@
   },
   "11ty": {
     "compatbility": ">=2.0.0"
+  },
+  "dependencies": {
+    "@netlify/functions": "^1.2.0"
   }
 }
