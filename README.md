@@ -14,7 +14,6 @@ The data should look as follows:
 [
   {
     "name": "ovl.design",
-    "cache_name": "ovl",
     "parserInfo": {
       "url": "https://www.ovl.design/text/",
       "elements": {
@@ -36,6 +35,16 @@ The URL given in `parserInfo.url` will be scraped and all posts returned. Based 
 The feed is named after `parserInfo.url`. Say your domain is `https://www.zachleat.com`, the feed will be available at `/feeds/www.zachleat.com.xml`.
 
 All created feeds are shown on the homepage.
+
+### Caching
+
+Fetched posts are preserved to disc in a distinct cache per site. This allows you to build up a feed over time, as `@inframanufaktur/blog-parser` only fetches the first page of a blog.
+
+You can either have this cache in your version control, or .gitignore this, and use a build plugin like [`netlify-plugin-cache`](https://www.npmjs.com/package/netlify-plugin-cache) to preserve it between builds.
+
+The cache folder is `./posts`.
+
+The cache name is automatically generated based on `parserInfo.url`, replacing `www.`. For `www.zachleat.com` the cache is stored in `./posts/zachleat.com.json`.
 
 ## What it needs
 
