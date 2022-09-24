@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const { createHash } = require('crypto')
 
 const { promises: promiseFs } = fs
 const { R_OK } = fs.constants
@@ -9,7 +10,14 @@ const CACHE_DIR = path.join(process.cwd(), 'posts')
 function makeCacheName(url) {
   url = new URL(url)
 
-  return url.host.startsWith('www.') ? url.host.replace('www.', '') : url.host
+  const cacheBase = url.host.startsWith('www.')
+    ? url.host.replace('www.', '')
+    : url.host
+
+  let hash = createHash('sha256')
+  hash.update(url.pathname)
+
+  return `${cacheBase}-${hash.digest('hex').substring(0, 15)}`
 }
 
 function createCacheFile(key) {
@@ -18,8 +26,8 @@ function createCacheFile(key) {
   })
 }
 
-async function setCache(url, posts) {
-  const key = makeCacheName(url)
+async function setCache(key, posts) {
+  // const key = makeCacheName(url)
 
   if (!fs.existsSync(CACHE_DIR)) {
     await promiseFs.mkdir(CACHE_DIR)
@@ -35,8 +43,8 @@ async function setCache(url, posts) {
   await promiseFs.writeFile(fileName, JSON.stringify(posts, 2, 2))
 }
 
-async function getCache(url) {
-  const key = makeCacheName(url)
+async function getCache(key) {
+  // const key = makeCacheName(url)
 
   const fileName = path.join(CACHE_DIR, `${key}.json`)
 
@@ -56,4 +64,4 @@ async function getCache(url) {
   }
 }
 
-module.exports = { getCache, setCache }
+module.exports = { getCache, setCache, makeCacheName }

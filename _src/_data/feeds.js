@@ -1,6 +1,6 @@
 const blogParser = import('@inframanufaktur/blog-parser')
 
-const { setCache, getCache } = require('./_utils/cache')
+const { setCache, getCache, makeCacheName } = require('./_utils/cache')
 
 const blogs = require('./blog-info.json')
 
@@ -32,7 +32,8 @@ module.exports = async function () {
     const { parserInfo } = blog
 
     const content = await getBlog(parserInfo)
-    const cached = await getCache(parserInfo.url)
+    const uniqueName = makeCacheName(parserInfo.url)
+    const cached = await getCache(uniqueName)
 
     if (content.feeds.length) {
       console.log(
@@ -52,11 +53,12 @@ module.exports = async function () {
 
     const distinctPosts = getDistinctPosts(cached, content.posts)
 
-    await setCache(parserInfo.url, distinctPosts)
+    await setCache(uniqueName, distinctPosts)
 
     feeds.push({
       ...blog,
       ...content,
+      uniqueName,
       posts: distinctPosts.sort((a, b) => a.date < b.date),
     })
   }

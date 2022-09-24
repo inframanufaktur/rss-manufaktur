@@ -25,8 +25,7 @@ module.exports = class Feed {
       tags: ['feeds'],
 
       eleventyComputed: {
-        permalink: ({ feed }) =>
-          `/feeds/${new URL(feed.parserInfo.url).host}.xml`,
+        permalink: ({ feed }) => `/feeds/${feed.uniqueName}.xml`,
       },
     }
   }
