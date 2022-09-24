@@ -7,13 +7,21 @@ const blogs = require('./blog-info.json')
 
 const CACHE_DIR = path.join(process.cwd(), 'posts')
 
+function makeCacheName(url) {
+  url = new URL(url)
+
+  return url.host.startsWith('www.') ? url.host.replace('www.', '') : url.host
+}
+
 function createCacheFile(key) {
   return promiseFs.writeFile(path.join(CACHE_DIR, `${key}.json`), '[]', {
     encoding: 'utf-8',
   })
 }
 
-async function setCache(key, posts) {
+async function setCache(url, posts) {
+  const key = makeCacheName(url)
+
   if (!fs.existsSync(CACHE_DIR)) {
     await promiseFs.mkdir(CACHE_DIR)
   }
@@ -28,7 +36,9 @@ async function setCache(key, posts) {
   await promiseFs.writeFile(fileName, JSON.stringify(posts, 2, 2))
 }
 
-async function getCache(key) {
+async function getCache(url) {
+  const key = makeCacheName(url)
+
   const fileName = path.join(CACHE_DIR, `${key}.json`)
 
   if (fs.existsSync(fileName)) {
@@ -49,9 +59,14 @@ function getDistinctPosts(cached, fresh) {
   const urls = new Map()
   const posts = []
 
+  // use cached first to keep old date of entries for which @inframanufaktur/blog-parser
+  // found no date when parsing the blog and used Date.now()
   for (const post of [...cached, ...fresh]) {
-    if (!urls.has(JSON.stringify(post.url))) {
-      urls.set(JSON.stringify(post.url), true)
+    // we compare `URL`s here, so stringify them for comparison
+    const compareURL = JSON.stringify(post.url)
+
+    if (!urls.has(compareURL)) {
+      urls.set(compareURL, true)
       posts.push(post)
     }
   }
@@ -68,7 +83,7 @@ module.exports = async function () {
     const { parserInfo } = blog
 
     const content = await getBlog(parserInfo)
-    const cached = await getCache(blog.cache_name)
+    const cached = await getCache(parserInfo.url)
 
     if (content.feeds.length) {
       console.log(
@@ -82,7 +97,7 @@ module.exports = async function () {
 
     const distinctPosts = getDistinctPosts(cached, content.posts)
 
-    await setCache(blog.cache_name, distinctPosts)
+    await setCache(parserInfo.url, distinctPosts)
 
     feeds.push({
       ...blog,
