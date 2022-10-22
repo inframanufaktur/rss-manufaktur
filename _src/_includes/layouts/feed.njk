@@ -4,8 +4,7 @@
   {# <subtitle>{{ metadata.subtitle }}</subtitle> #}
   <link href="{{ permalink | absoluteUrl(site.baseURL) }}" rel="self" />
   <link href="{{ feed.parserInfo.url }}" rel="alternate" />
-  {# {% set iconUrl = site.baseURL + '/img/favicon/favicon-32x32.png' %}
-  <icon>{{ iconUrl }}</icon> #}
+  <icon>{{ feed.meta.icon.parsedIcon | absoluteUrl(site.baseURL) }}</icon>
   <updated>{{
     collections[collection] | getNewestCollectionItemDate | dateToRfc3339
   }}</updated>

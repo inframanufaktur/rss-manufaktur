@@ -21,7 +21,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^2.0.0-canary.15",
     "@11ty/eleventy-plugin-rss": "^1.2.0",
-    "@inframanufaktur/blog-parser": "^0.5.0",
+    "@inframanufaktur/blog-parser": "^0.6.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1"
@@ -30,6 +30,7 @@
     "compatbility": ">=2.0.0"
   },
   "dependencies": {
+    "@11ty/eleventy-img": "^2.0.1",
     "@netlify/functions": "^1.2.0"
   }
 }
