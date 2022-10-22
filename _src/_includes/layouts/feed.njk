@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>{{ feed.meta.title }}</title>
-  {# <subtitle>{{ metadata.subtitle }}</subtitle> #}
+  {% if feed.meta.description %}
+    <subtitle>{{ feed.meta.description }}</subtitle>
+  {% endif %}
   <link href="{{ permalink | absoluteUrl(site.baseURL) }}" rel="self" />
   <link href="{{ feed.parserInfo.url }}" rel="alternate" />
   <icon>{{ feed.meta.icon.parsedIcon | absoluteUrl(site.baseURL) }}</icon>
