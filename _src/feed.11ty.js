@@ -4,11 +4,11 @@ function renderFeedItem({ title, url, date, postIntro }) {
   return `
     <entry>
       <title>${title}</title>
-      <link href="${url}"/>
+      <id>${url}</id>
+      <link href="${url}" rel="alternate" />
       <published>${dateToRfc3339(new Date(date))}</published>
       <updated>${dateToRfc3339(new Date(date))}</updated>
-      <id>${url}</id>
-      <summary type="html">${postIntro || ''}</summary>
+      ${postIntro ? `<summary>${postIntro}</summary>` : ''}
     </entry>
   `
 }
