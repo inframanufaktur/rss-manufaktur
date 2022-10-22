@@ -6,7 +6,7 @@
   <link href="{{ feed.parserInfo.url }}" rel="alternate" />
   <icon>{{ feed.meta.icon.parsedIcon | absoluteUrl(site.baseURL) }}</icon>
   <updated>{{
-    collections[collection] | getNewestCollectionItemDate | dateToRfc3339
+    feed.posts | getNewestCollectionItemDate | dateToRfc3339
   }}</updated>
   <id>{{ feed.parserInfo.url }}</id>
   {#
