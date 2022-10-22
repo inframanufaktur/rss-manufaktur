@@ -72,7 +72,7 @@ module.exports = async function () {
       ...blog,
       ...content,
       uniqueName,
-      posts: distinctPosts.sort((a, b) => a.date < b.date),
+      posts: distinctPosts.sort((a, b) => b.date - a.date),
     })
   }
 
