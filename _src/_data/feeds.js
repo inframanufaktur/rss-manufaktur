@@ -45,17 +45,21 @@ module.exports = async function () {
     }
 
     if (content.meta.icon) {
-      const parsed = await Image(content.meta.icon.href.href, {
-        width: [null],
-        formats: ['jpeg'],
-        urlPath: '/icons/',
-        outputDir: './dist/icons/',
-        cacheOptions: {
-          duration: '*',
-        },
-      })
+      try {
+        const parsed = await Image(content.meta.icon.href.href, {
+          width: [null],
+          formats: ['jpeg'],
+          urlPath: '/icons/',
+          outputDir: './dist/icons/',
+          cacheOptions: {
+            duration: '*',
+          },
+        })
 
-      content.meta.icon.parsedIcon = parsed.jpeg[0].url
+        content.meta.icon.parsedIcon = parsed.jpeg[0].url
+      } catch {
+        content.meta.icon.parsedIcon = content.meta.icon.href.href
+      }
     }
 
     for (const post of content.posts) {
