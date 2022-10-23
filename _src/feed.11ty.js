@@ -1,14 +1,15 @@
+const { escape } = require('html-escaper')
 const { dateToRfc3339 } = require('@11ty/eleventy-plugin-rss')
 
 function renderFeedItem({ title, url, date, postIntro }) {
   return `
     <entry>
-      <title>${title}</title>
+      <title>${escape(title)}</title>
       <id>${url}</id>
       <link href="${url}" rel="alternate" />
       <published>${dateToRfc3339(new Date(date))}</published>
       <updated>${dateToRfc3339(new Date(date))}</updated>
-      ${postIntro ? `<summary>${postIntro}</summary>` : ''}
+      ${postIntro ? `<summary>${escape(postIntro)}</summary>` : ''}
     </entry>
   `
 }
