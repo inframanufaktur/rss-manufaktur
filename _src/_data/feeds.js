@@ -44,8 +44,8 @@ module.exports = async function () {
       console.groupEnd()
     }
 
-    if (content.meta.icon) {
-      content.meta.icon = await makeIcon(content.meta.icon)
+    if (content.meta.icons.length) {
+      content.meta.parsedIcon = await makeIcon(content.meta.icons)
     }
 
     for (const post of content.posts) {

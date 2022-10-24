@@ -10,16 +10,34 @@ const supportedFormats = new Map([
 
 const getFileExtension = (fileName) => fileName.split('.').pop()
 
-async function makeIcon(icon) {
-  const format = supportedFormats.get(getFileExtension(icon.href.pathname))
+/**
+ *
+ *
+ * @param {Array} icons
+ * @return {String}
+ */
+async function makeIcon(icons) {
+  const sized = icons.filter(({ sizes }) => sizes !== null)
+  let icon = null
+  let width = null
+
+  if (sized.length) {
+    icon = sized.sort((a, b) => a.sizes.localeCompare(b.sizes))[
+      Math.ceil(sized.length / 2)
+    ]
+    width = parseInt(icon.sizes)
+  } else {
+    icon = icons[0]
+  }
+
+  const format = supportedFormats.get(getFileExtension(icon.url.pathname))
 
   if (!format) {
-    icon.parsedIcon = icon.href.href
-
-    return icon
+    return icon.url.href
   }
-  const parsed = await Image(icon.href.href, {
-    width: [null],
+
+  const parsed = await Image(icon.url.href, {
+    width: [width],
     formats: [format],
     urlPath: '/icons/',
     outputDir: './dist/icons/',
@@ -28,9 +46,7 @@ async function makeIcon(icon) {
     },
   })
 
-  icon.parsedIcon = parsed[format][0].url
-
-  return icon
+  return parsed[format][0].url
 }
 
 module.exports = { makeIcon }
