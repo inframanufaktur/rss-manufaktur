@@ -40,7 +40,7 @@ module.exports = async function () {
       console.group()
       console.log(`Found existing feeds on ${parserInfo.url}.`)
       console.log('Use first party feeds whenever possible.')
-      console.log(`${content.feeds.join('\n')}\n`)
+      console.log(`${content.feeds.map(({ url }) => url.href).join('\n')}\n`)
       console.groupEnd()
     }
 
